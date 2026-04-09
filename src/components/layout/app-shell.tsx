@@ -15,13 +15,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-surface-0 flex flex-col">
       <header className="sticky top-0 z-40 bg-surface-0/80 backdrop-blur-xl border-b border-border-subtle">
-        <div className="max-w-lg mx-auto flex items-center justify-between px-5 h-14">
-          <Link href="/taper" className="flex items-center gap-2">
+        <div className="max-w-lg mx-auto flex items-center justify-end px-5 h-14">
+          {/* <Link href="/taper" className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-accent-glow border border-accent-dim/20 flex items-center justify-center">
               <Pill size={14} className="text-accent" />
             </div>
             <span className="text-sm font-bold text-zinc-200 tracking-tight">Taper</span>
-          </Link>
+          </Link> */}
 
           <nav className="flex gap-1 bg-surface-2 p-1 rounded-xl">
             {NAV_ITEMS.map((item) => {

@@ -1,12 +1,12 @@
-import type { TaperProfile, DoseLog, DoseEntry } from "@/types";
+import type { TaperProfile, DoseLog, DoseEntry, TimeSlotId } from "@/types";
 import {
   notion, withRetry,
   getText, getNumber, getSelect, getDate, getRelation,
   setTitle, setRichText, setNumber, setSelect, setDate, setRelation,
 } from "./notion-client";
 
-const PROFILES_DB = process.env.NOTION_TAPER_PROFILES_DB_ID!;
-const LOGS_DB = process.env.NOTION_TAPER_DOSE_LOGS_DB_ID!;
+const PROFILES_DB = process.env.NEXT_NOTION_TAPER_PROFILES_DB_ID!;
+const LOGS_DB = process.env.NEXT_NOTION_TAPER_DOSE_LOGS_DB_ID!;
 
 const STATUS_LABELS: Record<string, string> = {
   active: "Active",
@@ -142,10 +142,10 @@ function parseLog(page: any): DoseLog {
   const night = getNumber(p, "Night");
 
   const entries: DoseEntry[] = [
-    { time: "morning", amount: morning },
-    { time: "afternoon", amount: afternoon },
-    { time: "evening", amount: evening },
-    { time: "night", amount: night },
+    { time: "morning" as TimeSlotId, amount: morning  },
+    { time: "afternoon"  as TimeSlotId, amount: afternoon },
+    { time: "evening"  as TimeSlotId, amount: evening },
+    { time: "night"  as TimeSlotId, amount: night },
   ].filter((e) => e.amount > 0);
 
   return {

@@ -1,6 +1,6 @@
 import { Client } from "@notionhq/client";
 
-export const notion = new Client({ auth: process.env.NOTION_API_KEY });
+export const notion = new Client({ auth: process.env.NEXT_NOTION_API_KEY });
 
 export function getText(props: any, key: string): string {
   const p = props[key];

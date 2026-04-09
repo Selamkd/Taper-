@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Pill, TrendingDown, Clock, User } from "lucide-react";
+import { Pill, TrendingDown, Clock, User, Activity } from "lucide-react";
 import type { TaperProfile, DoseLog, ReductionSpeed } from "@/types";
 import { getScheduleFromDose } from "@/lib/taper-schedules";
 import DailyTracker from "@/components/taper/daily-tracker";
@@ -152,23 +152,32 @@ export default function TaperPage() {
 
   return (
     <div className="space-y-5">
+   
+
+            <div>
+        <p className="text-[11px] text-zinc-600 mb-0.5">{dateStr}</p>
+        <div className="flex items-center gap-2 py-2">
+            <div className="w-7 h-7 rounded-lg bg-accent-glow border border-accent-dim/20 flex items-center justify-center">
+              <Pill size={14} className="text-accent" />
+            </div>
+          <h1 className="text-xl font-bold text-zinc-200 tracking-tight">
+          {profile.medicationName ? profile.medicationName : 'Taper'} 
+          </h1>
+        </div>
+        <p className="text-xs text-zinc-600 mt-1">
+          Log your doses and track medication levels throughout your  tapering journey</p>
+      </div>
+
       <div>
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <p className="text-[11px] text-zinc-600 mb-0.5">{dateStr}</p>
-            <h1 className="text-xl font-bold text-zinc-200 tracking-tight">
-              {profile.medicationName}
-            </h1>
-          </div>
-          {profiles.length > 1 && (
+        {profiles.length > 1 && (
             <div className="flex gap-1 bg-surface-2 p-1 rounded-lg">
               {profiles.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => loadProfile(p)}
                   className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all max-w-[72px] truncate ${
-                    profile.id === p.id
-                      ? "bg-surface-4 text-zinc-200"
+                    profile?.id === p?.id
+                      ? " bg-accent-glow border border-accent-dim/20 "
                       : "text-zinc-500 hover:text-zinc-300"
                   }`}
                 >
@@ -177,7 +186,7 @@ export default function TaperPage() {
               ))}
             </div>
           )}
-        </div>
+      </div>
 
         <div className="grid grid-cols-3 gap-2">
           {[
@@ -197,8 +206,6 @@ export default function TaperPage() {
             </div>
           ))}
         </div>
-      </div>
-
       <div className="flex gap-1 bg-surface-1 border border-border-subtle p-1 rounded-xl">
         {TABS.map((t) => {
           const Icon = t.icon;
@@ -209,7 +216,7 @@ export default function TaperPage() {
               onClick={() => setTab(t.id)}
               className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-semibold transition-all ${
                 isActive
-                  ? "bg-surface-3 text-zinc-200 shadow-sm"
+                  ? " bg-accent-glow border border-accent-dim/20 "
                   : "text-zinc-500 hover:text-zinc-400"
               }`}
             >

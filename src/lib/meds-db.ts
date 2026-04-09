@@ -5,8 +5,8 @@ import {
   setTitle, setRichText, setNumber, setSelect, setDate, setCheckbox, setRelation,
 } from "./notion-client";
 
-const PRESCRIPTIONS_DB = process.env.NOTION_MED_PRESCRIPTIONS_DB_ID!;
-const MED_LOGS_DB = process.env.NOTION_MED_LOGS_DB_ID!;
+const PRESCRIPTIONS_DB = process.env.NEXT_NOTION_MED_PRESCRIPTIONS_DB_ID!;
+const MED_LOGS_DB = process.env.NEXT_NOTION_MED_LOGS_DB_ID!;
 
 function parsePrescription(page: any): Prescription {
   const p = page.properties;
@@ -26,13 +26,16 @@ function parsePrescription(page: any): Prescription {
 
 function parseMedLog(page: any): MedLog {
   const p = page.properties;
+
+    const takenAtProp = p["Taken At"]?.date?.start ?? "";
+  
   return {
     id: page.id,
     prescriptionId: getRelation(p, "Prescription") ?? "",
     prescriptionName: getText(p, "Prescription Name"),
     doseMg: getNumber(p, "Dose mg"),
     halfLifeHours: getNumber(p, "Half Life Hours"),
-    takenAt: getText(p, "Taken At"),
+  takenAt: takenAtProp, 
     date: getDate(p, "Date") ?? "",
     notes: getText(p, "Notes") || undefined,
     createdAt: page.created_time,
@@ -122,7 +125,12 @@ export async function createMedLog(data: {
         "Prescription Name": setRichText(data.prescriptionName),
         "Dose mg": setNumber(data.doseMg),
         "Half Life Hours": setNumber(data.halfLifeHours),
-        "Taken At": setRichText(data.takenAt),
+      "Taken At": {
+          date: {
+            start: data.takenAt, 
+          },
+        },
+        
         Date: setDate(data.date),
         ...(data.notes && { Notes: setRichText(data.notes) }),
       },

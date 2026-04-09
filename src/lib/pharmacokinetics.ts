@@ -15,6 +15,11 @@ export function generateActivityCurve(
   rangeHours: number = 24,
   pointsPerHour: number = 4
 ): ActiveLevel[] {
+  const validLogs = logs.filter((log) => {
+    const t = new Date(log.takenAt);
+    return !isNaN(t.getTime());
+  });
+
   const now = new Date();
   const startTime = new Date(now.getTime() - rangeHours * 60 * 60 * 1000);
   const points: ActiveLevel[] = [];
@@ -24,12 +29,16 @@ export function generateActivityCurve(
     const pointTime = new Date(
       startTime.getTime() + (i / totalPoints) * rangeHours * 60 * 60 * 1000
     );
+
     let totalLevel = 0;
 
-    for (const log of logs) {
+    for (const log of validLogs) {
       const takenAt = new Date(log.takenAt);
+      const takenTime = takenAt.getTime();
+      if (isNaN(takenTime)) continue;
+
       const hoursElapsed =
-        (pointTime.getTime() - takenAt.getTime()) / (1000 * 60 * 60);
+        (pointTime.getTime() - takenTime) / (1000 * 60 * 60);
 
       if (hoursElapsed >= 0) {
         totalLevel += calculateActiveLevel(
@@ -42,11 +51,15 @@ export function generateActivityCurve(
 
     const hour = pointTime.getHours();
     const minute = pointTime.getMinutes();
-    const label = `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+    const label = `${hour.toString().padStart(2, "0")}:${minute
+      .toString()
+      .padStart(2, "0")}`;
+
+    const safeLevel = isNaN(totalLevel) ? 0 : totalLevel;
 
     points.push({
       time: pointTime.getTime(),
-      level: Math.round(totalLevel * 100) / 100,
+      level: Math.round(safeLevel * 100) / 100,
       label,
     });
   }
