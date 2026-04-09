@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, X, Clock, Trash2 } from "lucide-react";
+import { Plus, X, Clock, Trash2, Pill } from "lucide-react";
 import type { Prescription, MedLog } from "@/types";
 import { COMMON_MEDICATIONS } from "@/lib/pharmacokinetics";
 import Card from "@/components/ui/card";
@@ -56,16 +56,14 @@ export default function DoseLogger({
                     disabled={isLogging}
                     className="relative overflow-hidden rounded-xl border border-border-subtle bg-surface-1 p-4 text-left transition-all hover:border-border disabled:opacity-50"
                   >
-                    <div
-                      className="absolute top-0 left-0 right-0 h-1 rounded-t-xl"
-                      style={{ backgroundColor: rx.color }}
-                    />
+                 
                     <div className="flex items-center gap-2 mb-2">
                       <div
                         className="w-8 h-8 rounded-lg flex items-center justify-center text-[11px] font-bold font-mono text-white"
                         style={{ backgroundColor: rx.color + "33", color: rx.color }}
                       >
-                        {rx.doseMg}
+                    <Pill size={14}/>
+
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-xs font-semibold text-zinc-300 truncate">{rx.name}</div>
