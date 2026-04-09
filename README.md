@@ -4,7 +4,7 @@ A medication taper tracking app with a daily dose logger and pharmacokinetic act
 
 ## Features
 
-### Taper Tracker (Main Feature)
+### Taper Tracker 
 - **Daily Dose Logging** — track morning/afternoon/evening/night doses with quick +/- controls
 - **Timeline View** — visualize your entire taper schedule with current stage indicator
 - **History** — review past logs with adherence stats and streak tracking
@@ -86,13 +86,11 @@ You need 4 Notion databases. Create them in your Notion workspace and share them
 
 ```bash
 # 1. Clone and install
-git clone <your-repo>
-cd taper-tracker
+git clone
 npm install
 
 # 2. add environment
-cp .env.local.example .env.local
-# Edit .env.local with your Notion API key and database IDs
+  .env.local
 
 # 3. Run development server
 npm run dev
