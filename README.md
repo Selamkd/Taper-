@@ -1,20 +1,19 @@
 # Taper Tracker
 
-A medication taper tracking app with a daily dose logger and pharmacokinetic activity curve visualization. Built with Next.js 15, TypeScript, Tailwind CSS, and Notion as the database.
-
+A medication taper tracking app with a daily dose logger and activity graph.
 ## Features
 
 ### Taper Tracker 
 - **Daily Dose Logging** — track morning/afternoon/evening/night doses with quick +/- controls
 - **Timeline View** — visualize your entire taper schedule with current stage indicator
-- **History** — review past logs with adherence stats and streak tracking
+- **History** — review past logs with  stats and streak tracking
 - **Profile Management** — multiple medication profiles, configurable pace (Very Slow / Slow / Quick)
 - **Waythrough Guide** — taper schedules based on the Waythrough benzodiazepine reduction guide
 
 ### Medication Tracker 
 - **Prescription Management** — add common ADHD meds or custom prescriptions
 - **One-Tap Dose Logging** — tap a med card to log a dose at the current time
-- **Activity Curve** — real-time pharmacokinetic graph showing estimated active medication levels
+- **Activity Curve** — real-time  graph showing estimated active medication levels
 
 ## Tech Stack
 
@@ -28,7 +27,7 @@ A medication taper tracking app with a daily dose logger and pharmacokinetic act
 
 ## Notion Database Setup
 
-You need 4 Notion databases. Create them in your Notion workspace and share them with your integration.
+You need 4 Notion databases. Create them in your Notion workspace 
 
 ### 1. Taper Profiles DB
 | Property | Type |
